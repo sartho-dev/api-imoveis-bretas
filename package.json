@@ -1,0 +1,26 @@
+{
+  "name": "api-bretas-imoveis",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0",
+    "typeorm": "^0.3.26"
+  },
+  "scripts": {
+    "dev": "bun run src/main.ts",
+    "migration:generate": "bun ./node_modules/typeorm/cli.js -d src/infrastructure/database/data-source.ts migration:generate src/infrastructure/database/typeorm/migrations/NovaMigration",
+    "migration:run": "bun ./node_modules/typeorm/cli.js -d src/infrastructure/database/data-source.ts migration:run"
+  }
+
+}
