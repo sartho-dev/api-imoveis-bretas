@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { UsuarioSchema } from "./Usuario.schema";
 
 @Entity("imoveis")
 export class ImovelSchema {
@@ -59,4 +60,7 @@ export class ImovelSchema {
 
   @Column()
   disponivel: boolean;
+
+  @ManyToOne(() => UsuarioSchema, (usuario) => usuario.imoveis)
+  usuario: UsuarioSchema
 }

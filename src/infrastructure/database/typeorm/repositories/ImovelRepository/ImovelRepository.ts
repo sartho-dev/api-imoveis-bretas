@@ -1,12 +1,14 @@
 import type { Repository } from "typeorm";
 import type { IImovelRepository } from "./IImovelRepository";
-import { Imovel } from "../../../../domain/entities/Imovel";
-import type { ImovelSchema } from "../schema/Imovel.schema";
-import { Endereco } from "../../../../domain/value-objects/Endereco.vo";
-import { Dinheiro } from "../../../../domain/value-objects/Dinheiro.vo";
-import { Area } from "../../../../domain/value-objects/Area.vo";
-import { IFilterImovelDTO } from "../../../../application/dtos/IFilterImovel.dto";
-import { QueryBuilder } from "typeorm/browser";
+import { Imovel } from "../../../../../domain/entities/Imovel";
+import type { ImovelSchema } from "../../schema/Imovel.schema";
+import { Endereco } from "../../../../../domain/value-objects/Endereco.vo";
+import { Dinheiro } from "../../../../../domain/value-objects/Dinheiro.vo";
+import { Area } from "../../../../../domain/value-objects/Area.vo";
+import { IFilterImovelDTO } from "../../../../../application/dtos/Imovel/IFilterImovel.dto";
+import { Usuario } from "../../../../../domain/entities/Usuario";
+import { Email } from "../../../../../domain/value-objects/Email.vo";
+import { UsuarioSchema } from "../../schema/Usuario.schema";
 
 
 export class ImovelRepository implements IImovelRepository{
@@ -25,9 +27,11 @@ export class ImovelRepository implements IImovelRepository{
 
         const valor = new Dinheiro(schema.valor)
 
+        const usuario = new Usuario(new Email(schema.usuario.email), schema.usuario.senha)
+
         return new Imovel(schema.tipo, endereco, area, schema.quartos, 
             schema.banheiros,schema.suites, schema.vagas, valor, schema.situacao, schema.disponivel, 
-            schema.andar, schema.id
+            usuario, schema.andar, schema.id
         )
 
     }
@@ -36,8 +40,18 @@ export class ImovelRepository implements IImovelRepository{
 
 
     async save(imovel: Imovel): Promise<Imovel> {
+
+        const usuarioEntity = await this.ormRepository.manager.findOne(UsuarioSchema, {
+            where: { id: imovel.usuario.id }
+         });
+
+        if (!usuarioEntity) {
+            throw new Error("Usuário não encontrado para associar ao imóvel");
+        }
+
+
         const schema = this.ormRepository.create({
-            id: imovel.id,
+            
             tipo: imovel.tipo,
             rua: imovel.endereco.rua,
             numero: imovel.endereco.numero,
@@ -55,6 +69,7 @@ export class ImovelRepository implements IImovelRepository{
             valor: imovel.valor.valor,
             situacao: imovel.situacao,
             disponivel: imovel.disponivel,
+            usuario: usuarioEntity
 
         })
 

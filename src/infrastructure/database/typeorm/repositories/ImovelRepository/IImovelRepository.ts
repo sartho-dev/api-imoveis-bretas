@@ -1,5 +1,5 @@
-import { IFilterImovelDTO } from "../../../../application/dtos/IFilterImovel.dto";
-import type { Imovel } from "../../../../domain/entities/Imovel"
+import { IFilterImovelDTO } from "../../../../../application/dtos/Imovel/IFilterImovel.dto";
+import type { Imovel } from "../../../../../domain/entities/Imovel"
 
 
 export interface IImovelRepository{

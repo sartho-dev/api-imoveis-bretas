@@ -1,3 +1,5 @@
+import { Usuario } from "../../../domain/entities/Usuario";
+
 export interface ICreateImovelDTO{
     tipo:string;
     endereco:{
@@ -27,5 +29,6 @@ export interface ICreateImovelDTO{
     disponivel: boolean; 
     id?: number;
     andar?: number
+    usuarioId: number;
 
 }

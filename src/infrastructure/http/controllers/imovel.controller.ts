@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { container } from "tsyringe";
-import { CreateImovelCase } from "../../../application/use-case/create-imovel/create-imovel.case";
-import { FilterImovelCase } from "../../../application/use-case/create-imovel/filter-imovel.case";
+import { CreateImovelCase } from "../../../application/use-case/imovel-case/create-imovel.case";
+import { FilterImovelCase } from "../../../application/use-case/imovel-case/filter-imovel.case";
 
 export const ImovelController = {
 

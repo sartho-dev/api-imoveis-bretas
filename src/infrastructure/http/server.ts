@@ -1,7 +1,7 @@
 import express from "express";
-import { imovelRouter } from "./routes/imovel.router";
+import { imovelRouter } from "./routes/general.router";
 import { InicializaTudo } from "../container";
-
+import "dotenv/config";
 
 const app = express();
 

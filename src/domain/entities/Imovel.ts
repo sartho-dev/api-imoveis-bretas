@@ -1,6 +1,7 @@
 import { Endereco } from "../value-objects/Endereco.vo";
 import {  Dinheiro } from "../value-objects/Dinheiro.vo";
 import { Area } from "../value-objects/Area.vo";
+import { Usuario } from "./Usuario";
 
 export class Imovel{
 
@@ -16,6 +17,7 @@ export class Imovel{
     public disponivel: boolean; 
     public id?: number;
     public andar?: number
+    public usuario: Usuario 
 
     constructor(
         
@@ -29,6 +31,7 @@ export class Imovel{
         valor: Dinheiro,
         situacao: string,
         disponivel: boolean,
+        usuario:Usuario,
         andar?: number,
         id?: number,
         
@@ -45,6 +48,7 @@ export class Imovel{
         this.valor = valor;
         this.situacao = situacao;
         this.disponivel = disponivel;
+        this.usuario = usuario
     }
 
 }
